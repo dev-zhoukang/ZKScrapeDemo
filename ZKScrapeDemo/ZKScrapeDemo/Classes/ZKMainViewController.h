@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ZKMainViewController.h
 //  ZKScrapeDemo
 //
 //  Created by Zhou Kang on 2018/3/31.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ZKMainViewController : UIViewController
 
 @end
-

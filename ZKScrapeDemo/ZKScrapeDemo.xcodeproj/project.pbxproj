@@ -8,24 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		5852CFCE206F31BD0006CA6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5852CFCD206F31BD0006CA6C /* AppDelegate.m */; };
-		5852CFD1206F31BE0006CA6C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5852CFD0206F31BE0006CA6C /* ViewController.m */; };
-		5852CFD4206F31BE0006CA6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5852CFD2206F31BE0006CA6C /* Main.storyboard */; };
 		5852CFD6206F31BF0006CA6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5852CFD5206F31BF0006CA6C /* Assets.xcassets */; };
 		5852CFD9206F31BF0006CA6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5852CFD7206F31BF0006CA6C /* LaunchScreen.storyboard */; };
 		5852CFDC206F31BF0006CA6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5852CFDB206F31BF0006CA6C /* main.m */; };
+		58845DDC206F6D3700122F70 /* ZKMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58845DDA206F6D3700122F70 /* ZKMainViewController.m */; };
+		58845DDD206F6D3700122F70 /* ZKMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58845DDB206F6D3700122F70 /* ZKMainViewController.xib */; };
+		58845DE1206F6EC900122F70 /* ZKOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58845DDF206F6EC900122F70 /* ZKOneViewController.m */; };
+		58845DE2206F6EC900122F70 /* ZKOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58845DE0206F6EC900122F70 /* ZKOneViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5852CFC9206F31BD0006CA6C /* ZKScrapeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKScrapeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5852CFCC206F31BD0006CA6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5852CFCD206F31BD0006CA6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5852CFCF206F31BE0006CA6C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5852CFD0206F31BE0006CA6C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		5852CFD3206F31BE0006CA6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5852CFD5206F31BF0006CA6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5852CFD8206F31BF0006CA6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5852CFDA206F31BF0006CA6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5852CFDB206F31BF0006CA6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		58845DD9206F6D3700122F70 /* ZKMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKMainViewController.h; sourceTree = "<group>"; };
+		58845DDA206F6D3700122F70 /* ZKMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKMainViewController.m; sourceTree = "<group>"; };
+		58845DDB206F6D3700122F70 /* ZKMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZKMainViewController.xib; sourceTree = "<group>"; };
+		58845DDE206F6EC900122F70 /* ZKOneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKOneViewController.h; sourceTree = "<group>"; };
+		58845DDF206F6EC900122F70 /* ZKOneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKOneViewController.m; sourceTree = "<group>"; };
+		58845DE0206F6EC900122F70 /* ZKOneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZKOneViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				5852CFCB206F31BD0006CA6C /* ZKScrapeDemo */,
+				58845DD8206F6D0E00122F70 /* Supporting */,
 				5852CFCA206F31BD0006CA6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,15 +66,33 @@
 			children = (
 				5852CFCC206F31BD0006CA6C /* AppDelegate.h */,
 				5852CFCD206F31BD0006CA6C /* AppDelegate.m */,
-				5852CFCF206F31BE0006CA6C /* ViewController.h */,
-				5852CFD0206F31BE0006CA6C /* ViewController.m */,
-				5852CFD2206F31BE0006CA6C /* Main.storyboard */,
+				58845DD7206F6CC100122F70 /* Classes */,
+			);
+			path = ZKScrapeDemo;
+			sourceTree = "<group>";
+		};
+		58845DD7206F6CC100122F70 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				58845DD9206F6D3700122F70 /* ZKMainViewController.h */,
+				58845DDA206F6D3700122F70 /* ZKMainViewController.m */,
+				58845DDB206F6D3700122F70 /* ZKMainViewController.xib */,
+				58845DDE206F6EC900122F70 /* ZKOneViewController.h */,
+				58845DDF206F6EC900122F70 /* ZKOneViewController.m */,
+				58845DE0206F6EC900122F70 /* ZKOneViewController.xib */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		58845DD8206F6D0E00122F70 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
 				5852CFD5206F31BF0006CA6C /* Assets.xcassets */,
 				5852CFD7206F31BF0006CA6C /* LaunchScreen.storyboard */,
 				5852CFDA206F31BF0006CA6C /* Info.plist */,
 				5852CFDB206F31BF0006CA6C /* main.m */,
 			);
-			path = ZKScrapeDemo;
+			path = Supporting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +154,8 @@
 			files = (
 				5852CFD9206F31BF0006CA6C /* LaunchScreen.storyboard in Resources */,
 				5852CFD6206F31BF0006CA6C /* Assets.xcassets in Resources */,
-				5852CFD4206F31BE0006CA6C /* Main.storyboard in Resources */,
+				58845DE2206F6EC900122F70 /* ZKOneViewController.xib in Resources */,
+				58845DDD206F6D3700122F70 /* ZKMainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,23 +166,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5852CFD1206F31BE0006CA6C /* ViewController.m in Sources */,
 				5852CFDC206F31BF0006CA6C /* main.m in Sources */,
 				5852CFCE206F31BD0006CA6C /* AppDelegate.m in Sources */,
+				58845DE1206F6EC900122F70 /* ZKOneViewController.m in Sources */,
+				58845DDC206F6D3700122F70 /* ZKMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5852CFD2206F31BE0006CA6C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5852CFD3206F31BE0006CA6C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5852CFD7206F31BF0006CA6C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -285,14 +303,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TE2958KSXV;
-				INFOPLIST_FILE = ZKScrapeDemo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zk.ZKScrapeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -302,14 +321,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TE2958KSXV;
-				INFOPLIST_FILE = ZKScrapeDemo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zk.ZKScrapeDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

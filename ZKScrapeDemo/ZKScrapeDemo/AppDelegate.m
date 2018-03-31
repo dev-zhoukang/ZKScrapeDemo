@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZKMainViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    ZKMainViewController *mainVC = [ZKMainViewController new];
+    UINavigationController *navc = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    self.window.rootViewController = navc;
+    
     return YES;
 }
 
