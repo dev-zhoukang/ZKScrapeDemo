@@ -8,6 +8,8 @@
 
 #import "ZKScratchImageView.h"
 #import "ZKMatrix.h"
+#import "UIView+Addition.h"
+#import <YYKit.h>
 
 const size_t ZKScratchImageViewDefaultRadius            = 30;
 
@@ -32,6 +34,7 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
 
 @property (nonatomic, strong) ZKMatrix          *maskedMatrix;
 @property (nonatomic, strong) NSMutableArray    *touchPoints;
+@property (nonatomic, strong) YYAnimatedImageView       *fireworksImageView;
 
 @end
 
@@ -114,6 +117,28 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
         return ;
     }
     [super setImage:[self genHollowedImgWithTouches:touches]];
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self];
+    CGPoint prevLocation = [touch previousLocationInView:self];
+    if (location.x - prevLocation.x > 10) {
+        CGFloat distance = distanceBetweenPoints(location, prevLocation);
+    } else {
+        //finger touch went left
+    }
+    if (location.y - prevLocation.y > 0) {
+        //finger touch went upwards
+    } else {
+        //finger touch went downwards
+    }
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self hideFirework];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self hideFirework];
 }
 
 #pragma mark -
@@ -193,6 +218,8 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
             prevPoint = fromUItoQuartz(prevPoint, self.bounds.size);
             prevPoint = scalePoint(prevPoint, self.bounds.size, size);
             
+            [self showFireworkAtPoint:CGPointMake(prevPoint.x * .5f, CGRectGetHeight(self.frame)-prevPoint.y*0.5f)];
+            
             [self fillTileWithTwoPoints:touchPoint end:prevPoint];
         }
     }
@@ -260,5 +287,37 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
     [super dealloc];
 #endif
 }
+
+- (YYAnimatedImageView *)fireworksImageView {
+    if (!_fireworksImageView) {
+        YYImage *img = [YYImage imageNamed:@"fireworks_0"];
+        _fireworksImageView = [[YYAnimatedImageView alloc] initWithImage:img];
+        _fireworksImageView.us_size = CGSizeMake(120, 120);
+        [self addSubview:_fireworksImageView];
+    }
+    return _fireworksImageView;
+}
+
+- (void)showFireworkAtPoint:(CGPoint)point {
+    self.fireworksImageView.center = point;
+    [UIView animateWithDuration:.1 animations:^{
+        self.fireworksImageView.transform = CGAffineTransformMakeScale(1, 1);
+    } completion:nil];
+}
+
+- (void)hideFirework {
+    [UIView animateWithDuration:.1 animations:^{
+        self.fireworksImageView.transform = CGAffineTransformMakeScale(.001, .001);
+    } completion:^(BOOL finished) {
+        [self.fireworksImageView removeFromSuperview];
+        self.fireworksImageView = nil;
+    }];
+}
+
+CGFloat distanceBetweenPoints(CGPoint first, CGPoint second) {
+    CGFloat deltaX = second.x - first.x;
+    CGFloat deltaY = second.y - first.y;
+    return sqrt(deltaX*deltaX + deltaY*deltaY );
+};
 
 @end

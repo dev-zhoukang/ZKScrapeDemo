@@ -27,7 +27,7 @@
     _maskImageView = [[ZKScratchImageView alloc] init];
     [_imageView addSubview:_maskImageView];
     _maskImageView.frame = _imageView.bounds;
-    
+
     UIImage *maskImg = [[_imageView snapshotImage] imageByBlurLight];
     [_maskImageView setImage:maskImg radius:10];
     _maskImageView.delegate = self;
@@ -35,7 +35,7 @@
 }
 
 - (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress {
-    NSLog(@"%f", maskingProgress);
+    //NSLog(@"%f", maskingProgress);
 }
 
 @end
