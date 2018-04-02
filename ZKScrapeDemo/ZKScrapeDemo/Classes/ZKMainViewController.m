@@ -8,6 +8,7 @@
 
 #import "ZKMainViewController.h"
 #import "ZKOneViewController.h"
+#import "ZKTwoViewController.h"
 
 @interface ZKMainViewController ()
 
@@ -21,8 +22,20 @@
 }
 
 - (IBAction)jumpAction:(UIButton *)sender {
-    ZKOneViewController *oneVC = [ZKOneViewController new];
-    [self.navigationController pushViewController:oneVC animated:true];
+    
+    switch (sender.tag) {
+        case 0: {
+            ZKOneViewController *vc = [ZKOneViewController new];
+            [self.navigationController pushViewController:vc animated:true];
+        } break;
+        case 1: {
+            ZKTwoViewController *vc = [ZKTwoViewController new];
+            [self.navigationController pushViewController:vc animated:true];
+        } break;
+            
+        default:
+            break;
+    }
 }
 
 @end
