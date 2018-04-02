@@ -21,4 +21,6 @@
 
 - (void)setImage:(UIImage *)image radius:(size_t)radius;
 
+- (void)reset;
+
 @end

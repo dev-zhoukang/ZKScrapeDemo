@@ -35,7 +35,7 @@
 }
 
 - (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress {
-    //NSLog(@"%f", maskingProgress);
+    NSLog(@"%f", maskingProgress);
 }
 
 @end

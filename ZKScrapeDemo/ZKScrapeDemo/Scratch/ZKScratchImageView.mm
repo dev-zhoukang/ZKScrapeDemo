@@ -34,7 +34,10 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
 
 @property (nonatomic, strong) ZKMatrix          *maskedMatrix;
 @property (nonatomic, strong) NSMutableArray    *touchPoints;
-@property (nonatomic, strong) YYAnimatedImageView       *fireworksImageView;
+@property (nonatomic, strong) YYAnimatedImageView   *fireworksImageView;
+@property (nonatomic, strong) UIImage               *prevImg;
+@property (nonatomic, assign) size_t                prevRadius;
+@property (nonatomic, strong) UIImageView           *maskImgView;
 
 @end
 
@@ -83,9 +86,38 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
     }
 }
 
+- (void)reset {
+    [self clearMemory];
+    [self addSubview:self.maskImgView];
+    [UIView animateWithDuration:.25 animations:^{
+        self.maskImgView.alpha = 1.f;
+    } completion:^(BOOL finished) {
+        [self setImage:self.prevImg radius:self.prevRadius];
+        
+        [self.maskImgView removeFromSuperview];
+        self.maskImgView = nil;
+    }];
+}
+
+- (void)clearMemory {
+    self.maskedMatrix = nil;
+    if (NULL != _imageContext) {
+        CGContextRelease(_imageContext);
+        _imageContext = NULL;
+    }
+    if (NULL != _colorSpace) {
+        CGColorSpaceRelease(_colorSpace);
+        _colorSpace = NULL;
+    }
+    self.touchPoints = nil;
+}
+
 #pragma mark -
 
 - (void)setImage:(UIImage *)image radius:(size_t)radius {
+    self.prevImg = [image copy];
+    _prevRadius = radius;
+    
     [super setImage:image];
     _radius = radius;
     [self initialize];
@@ -135,6 +167,7 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self hideFirework];
+    [self reset];
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -273,19 +306,7 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
 }
 
 - (void)dealloc {
-    self.maskedMatrix = nil;
-    if (NULL != _imageContext) {
-        CGContextRelease(_imageContext);
-        _imageContext = NULL;
-    }
-    if (NULL != _colorSpace) {
-        CGColorSpaceRelease(_colorSpace);
-        _colorSpace = NULL;
-    }
-    self.touchPoints = nil;
-#if !(__has_feature(objc_arc))
-    [super dealloc];
-#endif
+    [self clearMemory];
 }
 
 - (YYAnimatedImageView *)fireworksImageView {
@@ -296,6 +317,16 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
         [self addSubview:_fireworksImageView];
     }
     return _fireworksImageView;
+}
+
+- (UIImageView *)maskImgView {
+    if (!_maskImgView) {
+        _maskImgView = [UIImageView new];
+        _maskImgView.frame = self.bounds;
+        _maskImgView.image = self.prevImg;
+        _maskImgView.alpha = 0;
+    }
+    return _maskImgView;
 }
 
 - (void)showFireworkAtPoint:(CGPoint)point {
