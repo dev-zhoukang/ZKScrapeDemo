@@ -29,7 +29,7 @@
 @property (nonatomic,strong)UIButton* rightBtn;
 @property (nonatomic,strong)UIButton* leftBtn;
 @property (nonatomic)BOOL enablePanGesture;
-@property (weak) id <ZKDraggableViewDelegate> delegate;
+@property (nonatomic, weak) id <ZKDraggableViewDelegate> delegate;
 
 -(void)leftClickAction;
 -(void)rightClickAction;

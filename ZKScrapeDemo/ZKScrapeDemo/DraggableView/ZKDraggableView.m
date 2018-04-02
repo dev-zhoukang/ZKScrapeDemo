@@ -55,10 +55,10 @@
     [self addSubview:bgView];
     
     self.leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(47, self.frame.size.height-13-BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_WIDTH)];
-    [self.leftBtn setBackgroundImage:[UIImage imageNamed:@"哭脸"] forState:UIControlStateNormal];
+    [self.leftBtn setBackgroundImage:[UIImage imageNamed:@"icon_unlike"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(leftClickAction) forControlEvents:UIControlEventTouchUpInside];
     self.rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-47-BUTTON_WIDTH, self.frame.size.height-13-BUTTON_WIDTH, BUTTON_WIDTH, BUTTON_WIDTH)];
-    [self.rightBtn setBackgroundImage:[UIImage imageNamed:@"笑脸"] forState:UIControlStateNormal];
+    [self.rightBtn setBackgroundImage:[UIImage imageNamed:@"icon_like"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(rightClickAction) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:self.leftBtn];
     [bgView addSubview:self.rightBtn];

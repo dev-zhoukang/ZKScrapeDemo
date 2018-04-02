@@ -12,7 +12,7 @@
 #define MIN_INFO_NUM 10
 #define CARD_SCALE 0.95
 
-@interface ZKDraggableViewController ()
+@interface ZKDraggableViewController () <ZKDraggableViewDelegate>
 
 @property(nonatomic) NSInteger page;
 
@@ -39,9 +39,7 @@
     
 }
 
-#pragma mark - 添加控件
 -(void)addControls{
-    
     UIButton *reloadBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [reloadBtn setTitle:@"Reload" forState:UIControlStateNormal];
     reloadBtn.frame = CGRectMake(self.view.center.x-25, self.view.frame.size.height-60, 50, 30);
@@ -49,8 +47,7 @@
     [self.view addSubview:reloadBtn];
 }
 
-#pragma mark - 刷新所有卡片
--(void)refreshAllCards{
+- (void)refreshAllCards {
     
     self.sourceObject=[@[] mutableCopy];
     self.page = 0;
@@ -73,7 +70,7 @@
             card.hidden=YES;
             card.center=CGPointMake([[UIScreen mainScreen]bounds].size.width+CARD_WIDTH, self.view.center.y);
             
-            if (i==_allCards.count-1) {
+            if (i==self->_allCards.count-1) {
                 [self requestSourceData:YES];
             }
         }];
@@ -99,7 +96,7 @@
 }
 
 #pragma mark - 重新加载卡片
--(void)loadAllCards{
+- (void)loadAllCards {
     for (int i=0; i < self.allCards.count; i++) {
         ZKDraggableView *draggableView = self.allCards[i];
         if ([self.sourceObject firstObject]) {
@@ -125,14 +122,14 @@
             draggableView.transform = CGAffineTransformMakeRotation(0);
             
             if (i>0&&i<CARD_NUM-1) {
-                ZKDraggableView *preDraggableView=[_allCards objectAtIndex:i-1];
+                ZKDraggableView *preDraggableView=[self->_allCards objectAtIndex:i-1];
                 draggableView.transform=CGAffineTransformScale(draggableView.transform, pow(CARD_SCALE, i), pow(CARD_SCALE, i));
                 CGRect frame=draggableView.frame;
                 frame.origin.y=preDraggableView.frame.origin.y+(preDraggableView.frame.size.height-frame.size.height)+10*pow(0.7,i);
                 draggableView.frame=frame;
                 
             }else if (i==CARD_NUM-1) {
-                ZKDraggableView *preDraggableView=[_allCards objectAtIndex:i-1];
+                ZKDraggableView *preDraggableView=[self->_allCards objectAtIndex:i-1];
                 draggableView.transform=preDraggableView.transform;
                 draggableView.frame=preDraggableView.frame;
             }
@@ -226,29 +223,27 @@
     [UIView animateWithDuration:0.2
                      animations:^{
                          for (int i = 1; i<CARD_NUM-1; i++) {
-                             ZKDraggableView *nextDraggableView=_allCards[i];
-                             ZKDraggableView *currentDraggableView=_allCards[i-1];
+                             ZKDraggableView *nextDraggableView=self->_allCards[i];
+                             ZKDraggableView *currentDraggableView=self->_allCards[i-1];
                              nextDraggableView.transform = currentDraggableView.originalTransform;
                              nextDraggableView.center = currentDraggableView.originalCenter;
                          }
                      } completion:nil];
 }
 
-#pragma mark - 滑动中更改其他卡片位置
-- (void)moveCards:(CGFloat)distance {
-    if (fabs(distance) > PAN_DISTANCE) {
+- (void)draggableView:(ZKDraggableView *)draggableView didMove:(CGFloat)translationX {
+    if (fabs(translationX) > PAN_DISTANCE) {
         return;
     }
     for (int i = 1; i<CARD_NUM-1; i++) {
         ZKDraggableView *draggableView = _allCards[i];
         ZKDraggableView *preDraggableView = _allCards[i-1];
-        draggableView.transform = CGAffineTransformScale(draggableView.originalTransform, 1+(1/CARD_SCALE-1)*fabs(distance/PAN_DISTANCE)*0.6, 1+(1/CARD_SCALE-1)*fabs(distance/PAN_DISTANCE)*0.6);//0.6为缩减因数，使放大速度始终小于卡片移动速度
+        draggableView.transform = CGAffineTransformScale(draggableView.originalTransform, 1+(1/CARD_SCALE-1)*fabs(translationX/PAN_DISTANCE)*0.6, 1+(1/CARD_SCALE-1)*fabs(translationX/PAN_DISTANCE)*0.6);//0.6为缩减因数，使放大速度始终小于卡片移动速度
         CGPoint center = draggableView.center;
-        center.y = draggableView.originalCenter.y-(draggableView.originalCenter.y-preDraggableView.originalCenter.y)*fabs(distance/PAN_DISTANCE)*0.6;//此处的0.6同上
+        center.y = draggableView.originalCenter.y-(draggableView.originalCenter.y-preDraggableView.originalCenter.y)*fabs(translationX/PAN_DISTANCE)*0.6;//此处的0.6同上
         draggableView.center = center;
     }
 }
-
 
 - (void)draggableViewDidMoveBack:(ZKDraggableView *)draggleView {
     for (int i = 1; i<CARD_NUM-1; i++) {

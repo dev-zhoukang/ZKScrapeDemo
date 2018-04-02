@@ -9,6 +9,7 @@
 #import "ZKMainViewController.h"
 #import "ZKOneViewController.h"
 #import "ZKTwoViewController.h"
+#import "ZKDraggableViewController.h"
 
 @interface ZKMainViewController ()
 
@@ -32,7 +33,10 @@
             ZKTwoViewController *vc = [ZKTwoViewController new];
             [self.navigationController pushViewController:vc animated:true];
         } break;
-            
+        case 2: {
+            ZKDraggableViewController *vc = [ZKDraggableViewController new];
+            [self.navigationController pushViewController:vc animated:true];
+        } break;
         default:
             break;
     }
