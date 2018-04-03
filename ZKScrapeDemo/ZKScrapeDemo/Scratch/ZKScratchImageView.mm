@@ -141,39 +141,43 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
     if(!self.image){
         return ;
     }
-    [super setImage:[self genHollowedImgWithTouches:touches]];
+    if (_imageContext) {
+        [super setImage:[self genHollowedImgWithTouches:touches]];
+    }
+    if ([self.delegate respondsToSelector:@selector(scratchImageViewTouchesBegan:)]) {
+        [self.delegate scratchImageViewTouchesBegan:self];
+    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     if(!self.image){
         return ;
     }
-    [super setImage:[self genHollowedImgWithTouches:touches]];
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInView:self];
-    CGPoint prevLocation = [touch previousLocationInView:self];
-    if (location.x - prevLocation.x > 10) {
-        CGFloat distance = distanceBetweenPoints(location, prevLocation);
-    } else {
-        //finger touch went left
+    if (_imageContext) {
+        [super setImage:[self genHollowedImgWithTouches:touches]];
     }
-    if (location.y - prevLocation.y > 0) {
-        //finger touch went upwards
-    } else {
-        //finger touch went downwards
-    }
+    [self calcVelocityWithTouches:touches];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self hideFirework];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self reset];
-    });
+    if ([self.delegate respondsToSelector:@selector(scratchImageViewTouchesEnded:)]) {
+        [self.delegate scratchImageViewTouchesEnded:self];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self hideFirework];
+}
+
+- (void)calcVelocityWithTouches:(NSSet *)touches {
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self];
+    CGPoint prevLocation = [touch previousLocationInView:self];
+    CGFloat distance = distanceBetweenPoints(location, prevLocation);
+    if ([self.delegate respondsToSelector:@selector(scratchImageView:touchesMovedWithVelocity:)]) {
+        [self.delegate scratchImageView:self touchesMovedWithVelocity:distance];
+    }
 }
 
 #pragma mark -
@@ -187,6 +191,9 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
 }
 
 - (UIImage *)genHollowedImgWithTouches:(NSSet *)touches {
+    if (_imageContext == nil) {
+        return self.prevImg;
+    }
     CGSize size = CGSizeMake(self.image.size.width * self.image.scale, self.image.size.height * self.image.scale);
     CGContextRef ctx = _imageContext;
     

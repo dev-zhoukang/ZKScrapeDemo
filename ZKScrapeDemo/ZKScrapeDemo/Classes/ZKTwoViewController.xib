@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZKTwoViewController">
             <connections>
                 <outlet property="imageView" destination="njd-7j-cKN" id="Ydb-xU-7uE"/>
+                <outlet property="velocityLabel" destination="pA8-Nd-Yyd" id="3w5-0Q-2Sl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,17 +23,27 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jay" translatesAutoresizingMaskIntoConstraints="NO" id="njd-7j-cKN">
-                    <rect key="frame" x="77.5" y="110" width="220" height="300"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="220" id="Sbh-ob-3o7"/>
-                        <constraint firstAttribute="height" constant="300" id="yko-na-7Wd"/>
-                    </constraints>
+                    <rect key="frame" x="30" y="120" width="315" height="517"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-Nd-Yyd">
+                    <rect key="frame" x="30" y="60" width="315" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="xXP-0x-whs"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" red="1" green="0.62966875289690605" blue="0.14115672456231354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="njd-7j-cKN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="E8R-Cj-KGw"/>
-                <constraint firstItem="njd-7j-cKN" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="90" id="Vmg-F1-mlS"/>
+                <constraint firstItem="njd-7j-cKN" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="100" id="Vmg-F1-mlS"/>
+                <constraint firstItem="njd-7j-cKN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="adU-rF-9U6"/>
+                <constraint firstItem="njd-7j-cKN" firstAttribute="top" secondItem="pA8-Nd-Yyd" secondAttribute="bottom" constant="10" id="hQ1-yS-eio"/>
+                <constraint firstItem="pA8-Nd-Yyd" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="30" id="mVx-5e-f3U"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="njd-7j-cKN" secondAttribute="bottom" constant="30" id="rxR-T3-91k"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="pA8-Nd-Yyd" secondAttribute="trailing" constant="30" id="xjO-37-KEW"/>
+                <constraint firstAttribute="trailing" secondItem="njd-7j-cKN" secondAttribute="trailing" constant="30" id="zPb-D2-zyL"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

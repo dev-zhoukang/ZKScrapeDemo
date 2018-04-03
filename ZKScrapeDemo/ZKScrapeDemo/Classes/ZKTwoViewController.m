@@ -14,11 +14,14 @@
 @interface ZKTwoViewController () <ZKScratchImageViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *velocityLabel;
 @property (nonatomic, strong) ZKScratchImageView *maskImageView;
 
 @end
 
-@implementation ZKTwoViewController
+@implementation ZKTwoViewController {
+    NSInteger _i;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,8 +37,18 @@
     _maskImageView.clipsToBounds = true;
 }
 
+#pragma mark - <ZKScratchImageViewDelegate>
+
 - (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress {
-    NSLog(@"%f", maskingProgress);
+    //NSLog(@"%f", maskingProgress);
+}
+
+- (void)scratchImageView:(ZKScratchImageView *)scratchImageView touchesMovedWithVelocity:(CGFloat)velocity {
+    if (++ _i % 10 == 0) {
+        NSLog(@"%f", velocity);
+        NSInteger intReslt = ceilf(velocity);
+        _velocityLabel.text = [NSString stringWithFormat:@"Velocity: %.0zd dt/frame", intReslt];
+    }
 }
 
 @end
