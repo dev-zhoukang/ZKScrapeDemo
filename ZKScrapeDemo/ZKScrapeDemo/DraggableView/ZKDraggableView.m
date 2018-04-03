@@ -8,6 +8,8 @@
 
 #import "ZKDraggableView.h"
 #import "ZKDraggableViewController.h"
+#import "ZKScratchImageView.h"
+#import <YYKit.h>
 
 #define ACTION_MARGIN_RIGHT  150
 #define ACTION_MARGIN_LEFT   150
@@ -19,12 +21,14 @@
 
 #define BUTTON_WIDTH   40
 
-@interface ZKDraggableView ()
+@interface ZKDraggableView () <ZKScratchImageViewDelegate>
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 
 @property (nonatomic,strong) UIImageView *headerImageView;
 @property (nonatomic,strong) UILabel *numLabel;
+@property (nonatomic, strong) UIImageView *secretImageView;
+@property (nonatomic, strong) ZKScratchImageView *scratchImageView;
 
 @end
 
@@ -44,8 +48,8 @@
 }
 
 - (void)addPanGesture {
-    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(beingDragged:)];
-    [self addGestureRecognizer:self.panGestureRecognizer];
+//    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(beingDragged:)];
+//    [self addGestureRecognizer:self.panGestureRecognizer];
 }
 
 - (void)setupViews {
@@ -70,7 +74,6 @@
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self.headerImageView addGestureRecognizer:tap];
     
-    
     self.numLabel=[[UILabel alloc] initWithFrame:CGRectMake(0, self.headerImageView.frame.size.height-20-4, self.frame.size.width, 20)];
     self.numLabel.font=[UIFont systemFontOfSize:15];
     self.numLabel.textAlignment=NSTextAlignmentCenter;
@@ -79,6 +82,17 @@
     self.layer.allowsEdgeAntialiasing=YES;
     bgView.layer.allowsEdgeAntialiasing=YES;
     self.headerImageView.layer.allowsEdgeAntialiasing=YES;
+    
+    _secretImageView = [[UIImageView alloc] init];
+    [self addSubview:_secretImageView];
+    _secretImageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    _secretImageView.image = [UIImage imageNamed:@"jay"];
+    
+    _scratchImageView = [[ZKScratchImageView alloc] init];
+    _scratchImageView.delegate = self;
+    [self addSubview:_scratchImageView];
+    [_scratchImageView setImage:[[_secretImageView snapshotImage] imageByBlurLight] radius:10];
+    _scratchImageView.frame = self.bounds;
 }
 
 - (void)setupShadow {
@@ -235,9 +249,6 @@
 
 #pragma mark - 点击右滑事件
 -(void)rightClickAction {
-    if (self.enablePanGesture==NO) {
-        return;
-    }
     if ([self.delegate respondsToSelector:@selector(draggableViewWillMoveOut:)]) {
         [self.delegate draggableViewWillMoveOut:self];
     }
@@ -257,9 +268,6 @@
 }
 
 - (void)leftClickAction {
-    if (!self.enablePanGesture) {
-        return;
-    }
     if ([self.delegate respondsToSelector:@selector(draggableViewWillMoveOut:)]) {
         [self.delegate draggableViewWillMoveOut:self];
     }
@@ -276,6 +284,19 @@
                              [self.delegate draggableView:self didMoveToRight:false];
                          }
                      }];
+}
+
+#pragma mark - <ZKScratchImageViewDelegate>
+
+- (void)scratchImageViewTouchesEnded:(ZKScratchImageView *)scratchImageView {
+    static int index = 0;
+    if (++index % 2 == 0) {
+        [self leftClickAction];
+    }
+    else {
+        [self rightClickAction];
+    }
+    [_scratchImageView reset];
 }
 
 @end

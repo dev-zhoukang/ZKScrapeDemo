@@ -148,7 +148,7 @@ static const CGFloat kCardZoomSize = .9;
         draggableView.delegate = self;
         [_allCards addObject:draggableView];
         if (i==0) {
-            draggableView.enablePanGesture = true;
+            draggableView.enablePanGesture = false;
         }
         else{
             draggableView.enablePanGesture = false;
@@ -193,7 +193,7 @@ static const CGFloat kCardZoomSize = .9;
         draggableView.originalCenter = draggableView.center;
         draggableView.originalTransform = draggableView.transform;
         if (i==0) {
-            draggableView.enablePanGesture = true;
+            draggableView.enablePanGesture = false;
         }
     }
 }

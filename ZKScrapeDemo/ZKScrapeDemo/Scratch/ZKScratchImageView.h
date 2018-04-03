@@ -10,9 +10,8 @@
 @class ZKScratchImageView;
 
 @protocol ZKScratchImageViewDelegate <NSObject>
-@required
-- (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress;
 @optional
+- (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress;
 - (void)scratchImageViewTouchesEnded:(ZKScratchImageView *)scratchImageView;
 - (void)scratchImageViewTouchesBegan:(ZKScratchImageView *)scratchImageView;
 - (void)scratchImageView:(ZKScratchImageView *)scratchImageView touchesMovedWithVelocity:(CGFloat)velocity;
