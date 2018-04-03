@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 @class ZKDraggableView;
 
-#define ROTATION_ANGLE M_PI/8
-#define CLICK_ANIMATION_TIME 0.5
-#define RESET_ANIMATION_TIME 0.3
+#define ROTATION_ANGLE         M_PI/8
+#define CLICK_ANIMATION_TIME   0.5
+#define RESET_ANIMATION_TIME   0.3
 
 @protocol ZKDraggableViewDelegate <NSObject>
 - (void)draggableView:(ZKDraggableView *)draggableView didMove:(CGFloat)translationX;

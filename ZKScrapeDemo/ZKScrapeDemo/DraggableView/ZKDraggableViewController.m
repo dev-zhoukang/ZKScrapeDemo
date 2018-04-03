@@ -8,38 +8,37 @@
 
 #import "ZKDraggableViewController.h"
 
-#define CARD_NUM 5
-#define MIN_INFO_NUM 10
-#define CARD_SCALE 0.95
-
 @interface ZKDraggableViewController () <ZKDraggableViewDelegate>
-
 @property(nonatomic) NSInteger page;
-
 @end
+
+static const NSUInteger kNumOfCardInShowing = 5;
+static const NSUInteger kMinNumOfInfos = 10;
+static const CGFloat kCardZoomSize = .9;
 
 @implementation ZKDraggableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"ZTDraggableView";
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    self.allCards = [NSMutableArray array];
-    self.sourceObject = [NSMutableArray array];
-    self.page = 0;
-    
-    [self addControls];
+    [self initData];
+    [self setupUI];
     [self addCards];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self requestSourceData:YES];
+        [self requestSourceData:true];
     });
-    
 }
 
--(void)addControls{
+- (void)initData {
+    self.allCards = [NSMutableArray array];
+    self.sourceObject = [NSMutableArray array];
+    self.page = 0;
+}
+
+- (void)setupUI {
+    self.title = @"ZKDraggableView";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UIButton *reloadBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [reloadBtn setTitle:@"Reload" forState:UIControlStateNormal];
     reloadBtn.frame = CGRectMake(self.view.center.x-25, self.view.frame.size.height-60, 50, 30);
@@ -48,18 +47,13 @@
 }
 
 - (void)refreshAllCards {
-    
     self.sourceObject=[@[] mutableCopy];
     self.page = 0;
     
     for (int i=0; i<_allCards.count ;i++) {
-        
         ZKDraggableView *card=self.allCards[i];
-        
         CGPoint finishPoint = CGPointMake(-CARD_WIDTH, 2*PAN_DISTANCE+card.frame.origin.y);
-        
         [UIView animateKeyframesWithDuration:0.5 delay:0.06*i options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
-            
             card.center = finishPoint;
             card.transform = CGAffineTransformMakeRotation(-ROTATION_ANGLE);
             
@@ -78,18 +72,14 @@
 }
 
 #pragma mark - 请求数据
--(void)requestSourceData:(BOOL)shouldReloadAllData{
-    /*
-     在此添加网络数据请求代码
-     */
-    
+- (void)requestSourceData:(BOOL)shouldReloadAllData {
     NSMutableArray *objectArray = [@[] mutableCopy];
     for (int i = 1; i <= 10; i++) {
-        [objectArray addObject:@{@"num":[NSString stringWithFormat:@"%ld",self.page*10+i]}];
+        NSDictionary *item = @{ @"num":[NSString stringWithFormat:@"%ld", self.page*10+i] };
+        [objectArray addObject:item];
     }
     [self.sourceObject addObjectsFromArray:objectArray];
     self.page++;
-    
     if (shouldReloadAllData) {
         [self loadAllCards];
     }
@@ -99,83 +89,72 @@
 - (void)loadAllCards {
     for (int i=0; i < self.allCards.count; i++) {
         ZKDraggableView *draggableView = self.allCards[i];
-        if ([self.sourceObject firstObject]) {
-            draggableView.userInfo=[self.sourceObject firstObject];
+        if ([self.sourceObject count]) {
+            draggableView.userInfo = [self.sourceObject firstObject];
             [self.sourceObject removeObjectAtIndex:0];
             [draggableView layoutSubviews];
-            draggableView.hidden=NO;
+            draggableView.hidden = false;
         }
         else {
-            draggableView.hidden=YES;//如果没有数据则隐藏卡片
+            draggableView.hidden = true;
         }
     }
     
-    for (int i=0; i<_allCards.count ;i++) {
-        
-        ZKDraggableView *draggableView=self.allCards[i];
-        
+    for (int i=0; i<_allCards.count; i++) {
+        ZKDraggableView *draggableView = self.allCards[i];
         CGPoint finishPoint = CGPointMake(self.view.center.x, self.view.center.y);
-        
-        [UIView animateKeyframesWithDuration:0.5 delay:0.06*i options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
-            
+        [UIView animateWithDuration:.9 delay:.06 * i usingSpringWithDamping:.66 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             draggableView.center = finishPoint;
             draggableView.transform = CGAffineTransformMakeRotation(0);
             
-            if (i>0&&i<CARD_NUM-1) {
-                ZKDraggableView *preDraggableView=[self->_allCards objectAtIndex:i-1];
-                draggableView.transform=CGAffineTransformScale(draggableView.transform, pow(CARD_SCALE, i), pow(CARD_SCALE, i));
+            if (i>0 && i<kNumOfCardInShowing-1) {
+                ZKDraggableView *preDraggableView = [self->_allCards objectAtIndex:i-1];
+                draggableView.transform=CGAffineTransformScale(draggableView.transform, pow(kCardZoomSize, i), pow(kCardZoomSize, i));
                 CGRect frame=draggableView.frame;
-                frame.origin.y=preDraggableView.frame.origin.y+(preDraggableView.frame.size.height-frame.size.height)+10*pow(0.7,i);
+                frame.origin.y = preDraggableView.frame.origin.y+(preDraggableView.frame.size.height-frame.size.height)+10*pow(0.7,i);
                 draggableView.frame=frame;
                 
-            }else if (i==CARD_NUM-1) {
-                ZKDraggableView *preDraggableView=[self->_allCards objectAtIndex:i-1];
-                draggableView.transform=preDraggableView.transform;
-                draggableView.frame=preDraggableView.frame;
             }
-        } completion:^(BOOL finished) {
-            
-        }];
+            else if (i==kNumOfCardInShowing-1) {
+                ZKDraggableView *preDraggableView=self->_allCards[i-1];
+                draggableView.transform = preDraggableView.transform;
+                draggableView.frame = preDraggableView.frame;
+            }
+        } completion:nil];
         
-        draggableView.originalCenter=draggableView.center;
-        draggableView.originalTransform=draggableView.transform;
+        draggableView.originalCenter = draggableView.center;
+        draggableView.originalTransform = draggableView.transform;
         
-        if (i == CARD_NUM-1) {
-            self.lastCardCenter=draggableView.center;
-            self.lastCardTransform=draggableView.transform;
+        if (i == kNumOfCardInShowing-1) {
+            self.lastCardCenter = draggableView.center;
+            self.lastCardTransform = draggableView.transform;
         }
     }
 }
 
-#pragma mark - 首次添加卡片
--(void)addCards{
-    for (int i = 0; i<CARD_NUM; i++) {
-        CGRect draggableViewFrame = CGRectMake([[UIScreen mainScreen]bounds].size.width+CARD_WIDTH,
-                                               self.view.center.y-CARD_HEIGHT/2,
+- (void)addCards {
+    for (int i = 0; i<kNumOfCardInShowing; i++) {
+        CGRect draggableViewFrame = CGRectMake([[UIScreen mainScreen]bounds].size.width + CARD_WIDTH,
+                                               self.view.center.y - CARD_HEIGHT/2,
                                                CARD_WIDTH,
                                                CARD_HEIGHT);
         
         ZKDraggableView *draggableView = [[ZKDraggableView alloc] initWithFrame:draggableViewFrame];
         
-        if (i>0 && i<CARD_NUM-1) {
-            draggableView.transform = CGAffineTransformScale(draggableView.transform, pow(CARD_SCALE, i), pow(CARD_SCALE, i));
-        }
-        else if (i==CARD_NUM-1) {
-            draggableView.transform=CGAffineTransformScale(draggableView.transform, pow(CARD_SCALE, i-1), pow(CARD_SCALE, i-1));
+        if (i>0 && i<kNumOfCardInShowing-1) {
+            draggableView.transform = CGAffineTransformScale(draggableView.transform, pow(kCardZoomSize, i), pow(kCardZoomSize, i));
         }
         draggableView.transform = CGAffineTransformMakeRotation(ROTATION_ANGLE);
         draggableView.delegate = self;
-        
         [_allCards addObject:draggableView];
         if (i==0) {
-            draggableView.enablePanGesture=YES;
+            draggableView.enablePanGesture = true;
         }
         else{
-            draggableView.enablePanGesture=NO;
+            draggableView.enablePanGesture = false;
         }
     }
-    
-    for (int i=(int)CARD_NUM-1; i>=0; i--) {
+    for (int i=kNumOfCardInShowing-1; i>=0; i--) {
         [self.view addSubview:_allCards[i]];
     }
 }
@@ -201,7 +180,7 @@
         draggableView.userInfo = [self.sourceObject firstObject];
         [self.sourceObject removeObjectAtIndex:0];
         [draggableView layoutSubviews];
-        if (self.sourceObject.count < MIN_INFO_NUM) {
+        if (self.sourceObject.count < kMinNumOfInfos) {
             [self requestSourceData:NO];
         }
     }
@@ -209,12 +188,12 @@
         draggableView.hidden = true;//如果没有数据则隐藏卡片
     }
     
-    for (int i = 0; i<CARD_NUM; i++) {
+    for (int i = 0; i<kNumOfCardInShowing; i++) {
         ZKDraggableView *draggableView = _allCards[i];
         draggableView.originalCenter = draggableView.center;
         draggableView.originalTransform = draggableView.transform;
         if (i==0) {
-            draggableView.enablePanGesture=YES;
+            draggableView.enablePanGesture = true;
         }
     }
 }
@@ -222,9 +201,9 @@
 - (void)draggableViewWillMoveOut:(ZKDraggableView *)draggableView {
     [UIView animateWithDuration:0.2
                      animations:^{
-                         for (int i = 1; i<CARD_NUM-1; i++) {
-                             ZKDraggableView *nextDraggableView=self->_allCards[i];
-                             ZKDraggableView *currentDraggableView=self->_allCards[i-1];
+                         for (int i = 1; i<kNumOfCardInShowing-1; i++) {
+                             ZKDraggableView *nextDraggableView = self->_allCards[i];
+                             ZKDraggableView *currentDraggableView = self->_allCards[i-1];
                              nextDraggableView.transform = currentDraggableView.originalTransform;
                              nextDraggableView.center = currentDraggableView.originalCenter;
                          }
@@ -235,10 +214,10 @@
     if (fabs(translationX) > PAN_DISTANCE) {
         return;
     }
-    for (int i = 1; i<CARD_NUM-1; i++) {
+    for (int i = 1; i<kNumOfCardInShowing-1; i++) {
         ZKDraggableView *draggableView = _allCards[i];
         ZKDraggableView *preDraggableView = _allCards[i-1];
-        draggableView.transform = CGAffineTransformScale(draggableView.originalTransform, 1+(1/CARD_SCALE-1)*fabs(translationX/PAN_DISTANCE)*0.6, 1+(1/CARD_SCALE-1)*fabs(translationX/PAN_DISTANCE)*0.6);//0.6为缩减因数，使放大速度始终小于卡片移动速度
+        draggableView.transform = CGAffineTransformScale(draggableView.originalTransform, 1+(1/kCardZoomSize-1)*fabs(translationX/PAN_DISTANCE)*0.6, 1+(1/kCardZoomSize-1)*fabs(translationX/PAN_DISTANCE)*0.6);//0.6为缩减因数，使放大速度始终小于卡片移动速度
         CGPoint center = draggableView.center;
         center.y = draggableView.originalCenter.y-(draggableView.originalCenter.y-preDraggableView.originalCenter.y)*fabs(translationX/PAN_DISTANCE)*0.6;//此处的0.6同上
         draggableView.center = center;
@@ -246,7 +225,7 @@
 }
 
 - (void)draggableViewDidMoveBack:(ZKDraggableView *)draggleView {
-    for (int i = 1; i<CARD_NUM-1; i++) {
+    for (int i = 1; i<kNumOfCardInShowing-1; i++) {
         ZKDraggableView *draggableView=_allCards[i];
         [UIView animateWithDuration:RESET_ANIMATION_TIME
                          animations:^{
