@@ -24,7 +24,7 @@
     static id instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[self alloc]init];
+        instance = [[self alloc] init];
     });
     return instance;
 }
@@ -42,7 +42,7 @@
         return false;
     }
     NSLog(@"%d",[[RPScreenRecorder sharedRecorder] isRecording]);
-    if ([[RPScreenRecorder sharedRecorder]isRecording]) {
+    if ([[RPScreenRecorder sharedRecorder] isRecording]) {
         return false;
     }
     [[RPScreenRecorder sharedRecorder] startRecordingWithMicrophoneEnabled:microphoneEnabled handler:^(NSError * _Nullable error) {

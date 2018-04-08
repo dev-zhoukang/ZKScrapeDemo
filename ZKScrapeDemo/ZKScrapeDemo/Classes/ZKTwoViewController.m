@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *velocityLabel;
 @property (nonatomic, strong) ZKScratchImageView *maskImageView;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 @end
 
@@ -37,9 +38,11 @@
     _maskImageView.delegate = self;
     _maskImageView.clipsToBounds = true;
     
-    [[ZKScreenRecorder shareInstance] startRecord:true];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self.audioPlayer play];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[ZKScreenRecorder shareInstance] startRecord:true];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[ZKScreenRecorder shareInstance] stopRecord];
     });
 }
@@ -54,8 +57,23 @@
     if (++ _i % 10 == 0) {
         NSLog(@"%f", velocity);
         NSInteger intReslt = ceilf(velocity);
-        _velocityLabel.text = [NSString stringWithFormat:@"Velocity: %.0zd dt/frame", intReslt];
+        _velocityLabel.text = [NSString stringWithFormat:@"Velocity: %.0ld dt/frame", (long)intReslt];
     }
+}
+
+- (AVAudioPlayer *)audioPlayer {
+    if (!_audioPlayer) {
+        NSString *audioPath = [[NSBundle mainBundle] pathForResource:@"nilin.m4a" ofType:nil];
+        NSURL *url = [NSURL fileURLWithPath:audioPath];
+        NSError *error = nil;
+        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        if (error) {
+            NSLog(@"audio player error: %@", error.localizedDescription);
+            return nil;
+        }
+        [_audioPlayer prepareToPlay];
+    }
+    return _audioPlayer;
 }
 
 @end
