@@ -10,6 +10,7 @@
 #import <YYKit.h>
 #import <Masonry.h>
 #import "ZKScratchImageView.h"
+#import "ZKScreenRecorder.h"
 
 @interface ZKTwoViewController () <ZKScratchImageViewDelegate>
 
@@ -35,6 +36,12 @@
     [_maskImageView setImage:maskImg radius:10];
     _maskImageView.delegate = self;
     _maskImageView.clipsToBounds = true;
+    
+    [[ZKScreenRecorder shareInstance] startRecord:true];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[ZKScreenRecorder shareInstance] stopRecord];
+    });
 }
 
 #pragma mark - <ZKScratchImageViewDelegate>

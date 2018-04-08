@@ -23,6 +23,7 @@
 		58845DDD206F6D3700122F70 /* ZKMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58845DDB206F6D3700122F70 /* ZKMainViewController.xib */; };
 		58845DE1206F6EC900122F70 /* ZKOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58845DDF206F6EC900122F70 /* ZKOneViewController.m */; };
 		58845DE2206F6EC900122F70 /* ZKOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58845DE0206F6EC900122F70 /* ZKOneViewController.xib */; };
+		58D55462207A1C95009F341A /* ZKScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D55461207A1C95009F341A /* ZKScreenRecorder.m */; };
 		88607908F6E3CDAF1C08E94D /* libPods-ZKScrapeDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9693622C297E1CDD4B89D87 /* libPods-ZKScrapeDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,8 @@
 		58845DDE206F6EC900122F70 /* ZKOneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKOneViewController.h; sourceTree = "<group>"; };
 		58845DDF206F6EC900122F70 /* ZKOneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKOneViewController.m; sourceTree = "<group>"; };
 		58845DE0206F6EC900122F70 /* ZKOneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZKOneViewController.xib; sourceTree = "<group>"; };
+		58D55460207A1C95009F341A /* ZKScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKScreenRecorder.h; sourceTree = "<group>"; };
+		58D55461207A1C95009F341A /* ZKScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKScreenRecorder.m; sourceTree = "<group>"; };
 		AE846EB8BB4BE8329B00F9A0 /* Pods-ZKScrapeDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZKScrapeDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZKScrapeDemo/Pods-ZKScrapeDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C9693622C297E1CDD4B89D87 /* libPods-ZKScrapeDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZKScrapeDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -93,6 +96,7 @@
 		5852CFCB206F31BD0006CA6C /* ZKScrapeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				58D5545F207A1C6D009F341A /* ZKScreenRecorder */,
 				586E2FCD20725AF100B9037D /* DraggableView */,
 				586E2FB52071CB0000B9037D /* Scratch */,
 				5852CFCC206F31BD0006CA6C /* AppDelegate.h */,
@@ -152,6 +156,15 @@
 				5852CFDB206F31BF0006CA6C /* main.m */,
 			);
 			path = Supporting;
+			sourceTree = "<group>";
+		};
+		58D5545F207A1C6D009F341A /* ZKScreenRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				58D55460207A1C95009F341A /* ZKScreenRecorder.h */,
+				58D55461207A1C95009F341A /* ZKScreenRecorder.m */,
+			);
+			path = ZKScreenRecorder;
 			sourceTree = "<group>";
 		};
 		B455A0F67CF1FC4CD746A47C /* Frameworks */ = {
@@ -301,6 +314,7 @@
 				586E2FBB2071CFC900B9037D /* ZKScratchImageView.mm in Sources */,
 				5852CFDC206F31BF0006CA6C /* main.m in Sources */,
 				5852CFCE206F31BD0006CA6C /* AppDelegate.m in Sources */,
+				58D55462207A1C95009F341A /* ZKScreenRecorder.m in Sources */,
 				58845DE1206F6EC900122F70 /* ZKOneViewController.m in Sources */,
 				586E2FCA2071FD4E00B9037D /* UIView+Addition.m in Sources */,
 				586E2FB82071CB8C00B9037D /* ZKMatrix.m in Sources */,
