@@ -7,10 +7,9 @@
 //
 
 #import "ZKOneViewController.h"
+#import "ZKScratchContainerView.h"
 
-@interface ZKOneViewController ()
-
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@interface ZKOneViewController () 
 
 @end
 
@@ -18,24 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.navigationController.navigationBar.hidden = true;
     
-    UITouch *touch = touches.anyObject;
-    CGPoint cententPoint = [touch locationInView:self.imageView];
-    CGRect  rect = CGRectMake(cententPoint.x, cententPoint.y, 30, 30);
-    UIGraphicsBeginImageContextWithOptions(self.imageView.bounds.size, NO, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [self.imageView.layer renderInContext:context];
-    CGContextClearRect(context, rect);
-    // 获取图片
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    // 结束图片的画板, (意味着图片在上下文中消失)
-    UIGraphicsEndImageContext();
-    self.imageView.image = image;
-    
+    ZKScratchContainerView *containerView = [ZKScratchContainerView new];
+    [self.view addSubview:containerView];
+    containerView.frame = self.view.bounds;
 }
 
 @end

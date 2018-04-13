@@ -320,7 +320,7 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
 
 - (YYAnimatedImageView *)fireworksImageView {
     if (!_fireworksImageView) {
-        YYImage *img = [YYImage imageNamed:@"fireworks_0"];
+        YYImage *img = [YYImage imageNamed:@"fireworks_0_hide"];
         _fireworksImageView = [[YYAnimatedImageView alloc] initWithImage:img];
         _fireworksImageView.us_size = CGSizeMake(120, 120);
         [self addSubview:_fireworksImageView];

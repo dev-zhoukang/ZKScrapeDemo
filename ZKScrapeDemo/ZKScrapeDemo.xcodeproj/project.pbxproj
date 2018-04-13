@@ -25,6 +25,8 @@
 		58845DE2206F6EC900122F70 /* ZKOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58845DE0206F6EC900122F70 /* ZKOneViewController.xib */; };
 		58D55462207A1C95009F341A /* ZKScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D55461207A1C95009F341A /* ZKScreenRecorder.m */; };
 		58D55464207A2FFE009F341A /* nilin.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 58D55463207A2FFE009F341A /* nilin.m4a */; };
+		58EDAAB72080CBA700EADB37 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EDAAB62080CBA700EADB37 /* UIImage+Addition.m */; };
+		58EDAABB2080D92800EADB37 /* ZKScratchContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */; };
 		88607908F6E3CDAF1C08E94D /* libPods-ZKScrapeDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9693622C297E1CDD4B89D87 /* libPods-ZKScrapeDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,11 @@
 		58D55460207A1C95009F341A /* ZKScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKScreenRecorder.h; sourceTree = "<group>"; };
 		58D55461207A1C95009F341A /* ZKScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKScreenRecorder.m; sourceTree = "<group>"; };
 		58D55463207A2FFE009F341A /* nilin.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = nilin.m4a; sourceTree = "<group>"; };
+		58EDAAB52080CBA700EADB37 /* UIImage+Addition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addition.h"; sourceTree = "<group>"; };
+		58EDAAB62080CBA700EADB37 /* UIImage+Addition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addition.m"; sourceTree = "<group>"; };
+		58EDAAB82080D2D100EADB37 /* ConfigHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeader.h; sourceTree = "<group>"; };
+		58EDAAB92080D92800EADB37 /* ZKScratchContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKScratchContainerView.h; sourceTree = "<group>"; };
+		58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKScratchContainerView.m; sourceTree = "<group>"; };
 		AE846EB8BB4BE8329B00F9A0 /* Pods-ZKScrapeDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZKScrapeDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZKScrapeDemo/Pods-ZKScrapeDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C9693622C297E1CDD4B89D87 /* libPods-ZKScrapeDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZKScrapeDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -142,6 +149,8 @@
 				586E2FBC2071DD2B00B9037D /* ZKTwoViewController.h */,
 				586E2FBD2071DD2B00B9037D /* ZKTwoViewController.m */,
 				586E2FBE2071DD2B00B9037D /* ZKTwoViewController.xib */,
+				58EDAAB92080D92800EADB37 /* ZKScratchContainerView.h */,
+				58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -149,10 +158,8 @@
 		58845DD8206F6D0E00122F70 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				58D55463207A2FFE009F341A /* nilin.m4a */,
-				586E2FCB207203CF00B9037D /* fireworks_0.gif */,
-				586E2FC82071FD4E00B9037D /* UIView+Addition.h */,
-				586E2FC92071FD4E00B9037D /* UIView+Addition.m */,
+				58EDAAB42080CB6400EADB37 /* Utils */,
+				58EDAAB32080CB3D00EADB37 /* source */,
 				5852CFD5206F31BF0006CA6C /* Assets.xcassets */,
 				5852CFD7206F31BF0006CA6C /* LaunchScreen.storyboard */,
 				5852CFDA206F31BF0006CA6C /* Info.plist */,
@@ -168,6 +175,27 @@
 				58D55461207A1C95009F341A /* ZKScreenRecorder.m */,
 			);
 			path = ZKScreenRecorder;
+			sourceTree = "<group>";
+		};
+		58EDAAB32080CB3D00EADB37 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				58D55463207A2FFE009F341A /* nilin.m4a */,
+				586E2FCB207203CF00B9037D /* fireworks_0.gif */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		58EDAAB42080CB6400EADB37 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				586E2FC82071FD4E00B9037D /* UIView+Addition.h */,
+				586E2FC92071FD4E00B9037D /* UIView+Addition.m */,
+				58EDAAB52080CBA700EADB37 /* UIImage+Addition.h */,
+				58EDAAB62080CBA700EADB37 /* UIImage+Addition.m */,
+				58EDAAB82080D2D100EADB37 /* ConfigHeader.h */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		B455A0F67CF1FC4CD746A47C /* Frameworks */ = {
@@ -320,6 +348,8 @@
 				5852CFCE206F31BD0006CA6C /* AppDelegate.m in Sources */,
 				58D55462207A1C95009F341A /* ZKScreenRecorder.m in Sources */,
 				58845DE1206F6EC900122F70 /* ZKOneViewController.m in Sources */,
+				58EDAABB2080D92800EADB37 /* ZKScratchContainerView.m in Sources */,
+				58EDAAB72080CBA700EADB37 /* UIImage+Addition.m in Sources */,
 				586E2FCA2071FD4E00B9037D /* UIView+Addition.m in Sources */,
 				586E2FB82071CB8C00B9037D /* ZKMatrix.m in Sources */,
 				586E2FBF2071DD2B00B9037D /* ZKTwoViewController.m in Sources */,
