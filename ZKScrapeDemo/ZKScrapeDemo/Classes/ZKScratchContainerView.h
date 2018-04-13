@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZKScratchItem.h"
 
 @interface ZKScratchContainerView : UIView
+
+- (void)updateWithDataSource:(NSArray <ZKScratchItem *> *)items;
 
 @end

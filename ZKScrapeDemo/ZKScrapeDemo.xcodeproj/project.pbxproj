@@ -27,6 +27,7 @@
 		58D55464207A2FFE009F341A /* nilin.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 58D55463207A2FFE009F341A /* nilin.m4a */; };
 		58EDAAB72080CBA700EADB37 /* UIImage+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EDAAB62080CBA700EADB37 /* UIImage+Addition.m */; };
 		58EDAABB2080D92800EADB37 /* ZKScratchContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */; };
+		58EDAAC12080E9B200EADB37 /* ZKScratchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EDAAC02080E9B200EADB37 /* ZKScratchItem.m */; };
 		88607908F6E3CDAF1C08E94D /* libPods-ZKScrapeDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9693622C297E1CDD4B89D87 /* libPods-ZKScrapeDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,8 @@
 		58EDAAB82080D2D100EADB37 /* ConfigHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigHeader.h; sourceTree = "<group>"; };
 		58EDAAB92080D92800EADB37 /* ZKScratchContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKScratchContainerView.h; sourceTree = "<group>"; };
 		58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKScratchContainerView.m; sourceTree = "<group>"; };
+		58EDAABF2080E9B200EADB37 /* ZKScratchItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKScratchItem.h; sourceTree = "<group>"; };
+		58EDAAC02080E9B200EADB37 /* ZKScratchItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKScratchItem.m; sourceTree = "<group>"; };
 		AE846EB8BB4BE8329B00F9A0 /* Pods-ZKScrapeDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZKScrapeDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZKScrapeDemo/Pods-ZKScrapeDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C9693622C297E1CDD4B89D87 /* libPods-ZKScrapeDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZKScrapeDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -151,6 +154,8 @@
 				586E2FBE2071DD2B00B9037D /* ZKTwoViewController.xib */,
 				58EDAAB92080D92800EADB37 /* ZKScratchContainerView.h */,
 				58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */,
+				58EDAABF2080E9B200EADB37 /* ZKScratchItem.h */,
+				58EDAAC02080E9B200EADB37 /* ZKScratchItem.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 			files = (
 				586E2FBB2071CFC900B9037D /* ZKScratchImageView.mm in Sources */,
 				5852CFDC206F31BF0006CA6C /* main.m in Sources */,
+				58EDAAC12080E9B200EADB37 /* ZKScratchItem.m in Sources */,
 				5852CFCE206F31BD0006CA6C /* AppDelegate.m in Sources */,
 				58D55462207A1C95009F341A /* ZKScreenRecorder.m in Sources */,
 				58845DE1206F6EC900122F70 /* ZKOneViewController.m in Sources */,
@@ -491,7 +497,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TE2958KSXV;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,7 +516,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TE2958KSXV;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

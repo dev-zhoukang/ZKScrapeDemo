@@ -23,7 +23,6 @@
 }
 
 - (IBAction)jumpAction:(UIButton *)sender {
-    
     switch (sender.tag) {
         case 0: {
             ZKOneViewController *vc = [ZKOneViewController new];
