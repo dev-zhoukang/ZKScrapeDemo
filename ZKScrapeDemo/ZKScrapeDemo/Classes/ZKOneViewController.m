@@ -23,25 +23,26 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = true;
     
-    [self requestData];
-    
     _scratchContainer = [ZKScratchContainerView new];
     [self.view addSubview:_scratchContainer];
     [_scratchContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+    
+    [self requestData];
 }
 
 - (void)requestData {
-    NSString *names[2] = { @"fanshoumo", @"yungong" };
-    CGRect rects[2] = { {93,312,400,220}, {32,446,200,300} };
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ScratchImageSource.json" ofType:nil];
+    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+    NSDictionary *sourceDict = [NSJSONSerialization JSONObjectWithData:fileData options:NSJSONReadingMutableContainers error:nil];
+    NSArray *sourceArray = sourceDict[@"list"];
     
     NSMutableArray <ZKScratchItem *> *items = [NSMutableArray array];
-    for (int i = 0; i < 2; i ++) {
-        ZKScratchItem *item = [ZKScratchItem new];
-        item.imageName = names[i];
-        item.blurRect = rects[i];
-        [items addObject:item];
+    for (NSDictionary *dict in sourceArray) {
+        ZKScratchItem *model = [ZKScratchItem modelWithDict:dict];
+        [items addObject:model];
     }
     [_scratchContainer updateWithDataSource: items];
 }

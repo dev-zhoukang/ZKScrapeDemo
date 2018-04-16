@@ -1,0 +1,15 @@
+
+{
+    "list": [
+             {
+             "name": "fanshoumo",
+             "blur_frame": "{{93, 312}, {400, 220}}",
+             "image_size": "{591, 960}"
+             },
+             {
+             "name": "yungong",
+             "blur_frame": "{{32, 446}, {200, 300}}",
+             "image_size": "{440, 920}"
+             }
+             ]
+}

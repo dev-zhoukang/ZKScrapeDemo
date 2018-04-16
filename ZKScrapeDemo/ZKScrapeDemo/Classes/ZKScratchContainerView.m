@@ -38,6 +38,7 @@
 
 - (void)updateWithDataSource:(NSArray<ZKScratchItem *> *)items {
     [_dataSource addObjectsFromArray:items];
+    _imageView.image = [self getOriginalImageWithIndex:_currentIndex];
     [self startRender];
 }
 
@@ -48,17 +49,16 @@
     
     ZKScratchItem *item = _dataSource[_currentIndex];
     
-    UIImage *image = [self getOriginalImage];
-    // 93, 312, 400, 220
-    CGRect blurRect = CGRectMake(32, 446, 200, 300);
-    image = [image imageClipedWithRect:blurRect];
-    image = [image imageByBlurSoft];
-    [_maskImageView setImage:image radius:2.f];
+    UIImage *oriImage = [self getOriginalImageWithIndex:_currentIndex];
+    CGRect blurRect = item.blurRect;
+    UIImage *blurImage = [oriImage imageClipedWithRect:blurRect];
+    blurImage = [blurImage imageByBlurSoft];
+    [_maskImageView setImage:blurImage radius:2.f];
     
     CGFloat scale = [self calcScale];
     
-    if ([self isImageWidderThanScreenWidth:[self getOriginalImage]]) {
-        CGFloat deltaY = (SCREEN_HEIGHT - [self getOriginalImage].size.height * scale) * .5;
+    if ([self isImageWidderThanScreenWidth:oriImage]) {
+        CGFloat deltaY = (SCREEN_HEIGHT - oriImage.size.height * scale) * .5;
         _maskImageView.frame = (CGRect){
             blurRect.origin.x * scale,
             blurRect.origin.y * scale + deltaY,
@@ -66,7 +66,7 @@
             blurRect.size.height * scale };
     }
     else {
-        CGFloat deltaX = (SCREEN_WIDTH - [self getOriginalImage].size.width * scale) * .5;
+        CGFloat deltaX = (SCREEN_WIDTH - oriImage.size.width * scale) * .5;
         _maskImageView.frame = (CGRect){
             blurRect.origin.x * scale + deltaX,
             blurRect.origin.y * scale,
@@ -87,7 +87,6 @@
     }];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.userInteractionEnabled = true;
-    _imageView.image = [self getOriginalImage];
     
     _maskImageView = [[ZKScratchImageView alloc] init];
     [_imageView addSubview:_maskImageView];
@@ -98,9 +97,9 @@
 }
 
 - (CGFloat)calcScale {
-    UIImage *taegetImage = [self getOriginalImage];
-    CGSize imageSize = [taegetImage size];
-    BOOL isWidder = [self isImageWidderThanScreenWidth:taegetImage];
+    UIImage *targetImage = [self getOriginalImageWithIndex:_currentIndex];
+    CGSize imageSize = [targetImage size];
+    BOOL isWidder = [self isImageWidderThanScreenWidth:targetImage];
     
     CGFloat scale = 0;
     if (isWidder) {
@@ -118,11 +117,11 @@
     return isWidder;
 }
 
-- (UIImage *)getOriginalImage {
-    if (_currentIndex >= _dataSource.count) {
+- (UIImage *)getOriginalImageWithIndex:(NSInteger)index {
+    if (index >= _dataSource.count) {
         return nil;
     }
-    ZKScratchItem *item = _dataSource[_currentIndex];
+    ZKScratchItem *item = _dataSource[index];
     UIImage *image = [UIImage imageNamed:item.imageName];
     return image;
 }

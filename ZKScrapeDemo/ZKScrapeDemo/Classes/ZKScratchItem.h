@@ -12,5 +12,8 @@
 
 @property (nonatomic, copy) NSString *imageName;
 @property (nonatomic, assign) CGRect blurRect;
+@property (nonatomic, assign) CGSize imageSize;
+
++ (instancetype)modelWithDict:(NSDictionary *)dict;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5842B1D2208490C40000CA20 /* ScratchImageSource.json in Resources */ = {isa = PBXBuildFile; fileRef = 5842B1D1208490C40000CA20 /* ScratchImageSource.json */; };
 		5852CFCE206F31BD0006CA6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5852CFCD206F31BD0006CA6C /* AppDelegate.m */; };
 		5852CFD6206F31BF0006CA6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5852CFD5206F31BF0006CA6C /* Assets.xcassets */; };
 		5852CFD9206F31BF0006CA6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5852CFD7206F31BF0006CA6C /* LaunchScreen.storyboard */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		0E15F2E6D829E960E8CD9A7D /* Pods-ZKScrapeDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZKScrapeDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZKScrapeDemo/Pods-ZKScrapeDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5842B1D1208490C40000CA20 /* ScratchImageSource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ScratchImageSource.json; sourceTree = "<group>"; };
 		5852CFC9206F31BD0006CA6C /* ZKScrapeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKScrapeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5852CFCC206F31BD0006CA6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5852CFCD206F31BD0006CA6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				58EDAABA2080D92800EADB37 /* ZKScratchContainerView.m */,
 				58EDAABF2080E9B200EADB37 /* ZKScratchItem.h */,
 				58EDAAC02080E9B200EADB37 /* ZKScratchItem.m */,
+				5842B1D1208490C40000CA20 /* ScratchImageSource.json */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				586E2FC02071DD2B00B9037D /* ZKTwoViewController.xib in Resources */,
 				58D55464207A2FFE009F341A /* nilin.m4a in Resources */,
 				5852CFD9206F31BF0006CA6C /* LaunchScreen.storyboard in Resources */,
+				5842B1D2208490C40000CA20 /* ScratchImageSource.json in Resources */,
 				5852CFD6206F31BF0006CA6C /* Assets.xcassets in Resources */,
 				58845DE2206F6EC900122F70 /* ZKOneViewController.xib in Resources */,
 				586E2FCC207203CF00B9037D /* fireworks_0.gif in Resources */,
