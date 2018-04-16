@@ -86,7 +86,7 @@ inline CGPoint scalePoint(CGPoint point, CGSize previousSize, CGSize currentSize
     }
 }
 
-- (void)reset {
+- (void)resume {
     [self clearMemory];
     [self addSubview:self.maskImgView];
     [UIView animateWithDuration:.25 animations:^{

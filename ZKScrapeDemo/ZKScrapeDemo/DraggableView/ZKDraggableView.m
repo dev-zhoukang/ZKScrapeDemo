@@ -296,7 +296,7 @@
     else {
         [self rightClickAction];
     }
-    [_scratchImageView reset];
+    [_scratchImageView resume];
 }
 
 @end

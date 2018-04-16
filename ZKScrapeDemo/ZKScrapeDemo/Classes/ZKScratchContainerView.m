@@ -12,16 +12,16 @@
 #import <Masonry.h>
 #import "ConfigHeader.h"
 #import <YYKit.h>
+#import "NSTimer+ZKAutoRelease.h"
 
 @interface ZKScratchContainerView () <ZKScratchImageViewDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
-
 @property (nonatomic, strong) ZKScratchImageView *maskImageView;
-
 @property (nonatomic, assign) NSInteger currentIndex;
-
 @property (nonatomic, strong) NSMutableArray <ZKScratchItem *> *dataSource;
+@property (nonatomic, weak)   NSTimer *timer;
+@property (nonatomic, assign) NSInteger resumeTime;
 
 @end
 
@@ -36,10 +36,27 @@
     return self;
 }
 
+- (void)addTimer {
+    __weak typeof(self) weakSelf = self;
+    _timer = [NSTimer zk_scheduledTimerWithTimeInterval:2 block:^{
+        if (++ weakSelf.resumeTime % 2 == 0) {
+            NSLog(@"恢复模糊");
+            [weakSelf.maskImageView resume];
+        }
+    } repeates:true];
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopTimer {
+    [_timer invalidate];
+    _timer = nil;
+}
+
 - (void)updateWithDataSource:(NSArray<ZKScratchItem *> *)items {
     [_dataSource addObjectsFromArray:items];
     _imageView.image = [self getOriginalImageWithIndex:_currentIndex];
     [self startRender];
+    [self addTimer];
 }
 
 - (void)startRender {
@@ -53,7 +70,8 @@
     CGRect blurRect = item.blurRect;
     UIImage *blurImage = [oriImage imageClipedWithRect:blurRect];
     blurImage = [blurImage imageByBlurSoft];
-    [_maskImageView setImage:blurImage radius:2.f];
+    [_maskImageView setImage:blurImage radius:3.f];
+    _maskImageView.alpha = .95;
     
     CGFloat scale = [self calcScale];
     
@@ -130,6 +148,10 @@
 
 - (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress {
     NSLog(@"%f", maskingProgress);
+}
+
+- (void)dealloc {
+    [self stopTimer];
 }
 
 @end
