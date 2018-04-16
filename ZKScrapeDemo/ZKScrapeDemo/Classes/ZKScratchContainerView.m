@@ -21,7 +21,7 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, strong) NSMutableArray <ZKScratchItem *> *dataSource;
 @property (nonatomic, weak)   NSTimer *timer;
-@property (nonatomic, assign) NSInteger resumeTime;
+@property (nonatomic, assign) BOOL hasUnlocked;
 
 @end
 
@@ -37,12 +37,13 @@
 }
 
 - (void)addTimer {
+    if (_timer) {
+        [self stopTimer];
+    }
     __weak typeof(self) weakSelf = self;
-    _timer = [NSTimer zk_scheduledTimerWithTimeInterval:2 block:^{
-        if (++ weakSelf.resumeTime % 2 == 0) {
-            NSLog(@"恢复模糊");
-            [weakSelf.maskImageView resume];
-        }
+    _timer = [NSTimer zk_scheduledTimerWithTimeInterval:5 block:^{
+        NSLog(@"恢复模糊");
+        [weakSelf.maskImageView resume];
     } repeates:true];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
@@ -71,7 +72,7 @@
     UIImage *blurImage = [oriImage imageClipedWithRect:blurRect];
     blurImage = [blurImage imageByBlurSoft];
     [_maskImageView setImage:blurImage radius:3.f];
-    _maskImageView.alpha = .95;
+    _maskImageView.alpha = .978;
     
     CGFloat scale = [self calcScale];
     
@@ -144,10 +145,43 @@
     return image;
 }
 
+- (void)nextPage {
+    _currentIndex ++;
+    if (_currentIndex >= _dataSource.count) {
+        [self stopTimer];
+        NSLog(@"已经到最后一张");
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:.25 animations:^{
+        weakSelf.imageView.alpha = .8f;
+    } completion:^(BOOL finished) {
+        weakSelf.imageView.image = [self getOriginalImageWithIndex:weakSelf.currentIndex];
+        [self startRender];
+        [self addTimer];
+        weakSelf.hasUnlocked = false;
+        [UIView animateWithDuration:.25 animations:^{
+            weakSelf.imageView.alpha = 1.f;
+        }];
+    }];
+}
+
 #pragma mark - <ZKScratchImageViewDelegate>
 
 - (void)scratchImageView:(ZKScratchImageView *)scratchImageView didChangeMaskingProgress:(CGFloat)maskingProgress {
     NSLog(@"%f", maskingProgress);
+    if (maskingProgress > .2 && !_hasUnlocked) {
+        _hasUnlocked = true;
+        NSLog(@"解锁");
+        __weak typeof(self) weakSelf = self;
+        [UIView animateWithDuration:.12 animations:^{
+            weakSelf.maskImageView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [weakSelf stopTimer];
+            [weakSelf nextPage];
+        }];
+    }
 }
 
 - (void)dealloc {

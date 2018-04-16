@@ -10,6 +10,21 @@
              "name": "yungong",
              "blur_frame": "{{32, 446}, {200, 300}}",
              "image_size": "{440, 920}"
-             }
+             },
+             {
+             "name": "chiji",
+             "blur_frame": "{{60, 490}, {353, 177}}",
+             "image_size": "{600, 798}"
+             },
+             {
+             "name": "super_man",
+             "blur_frame": "{{83, 10}, {318, 200}}",
+             "image_size": "{483, 604}"
+             },
+             {
+             "name": "kilt",
+             "blur_frame": "{{105, 70}, {370, 220}}",
+             "image_size": "{600, 906}"
+             },
              ]
 }
