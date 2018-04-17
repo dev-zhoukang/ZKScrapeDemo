@@ -112,7 +112,6 @@
     _maskImageView.delegate = self;
     _maskImageView.layer.cornerRadius = 10.f;
     _maskImageView.layer.masksToBounds = true;
-    _maskImageView.alpha = .98;
 }
 
 - (CGFloat)calcScale {
